@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Financeiro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard Financeiro</h1>
+
+    <div class="container">
+        <div class="card">
+            <h3>Total Receitas</h3>
+            <p>R$ {{ total_receitas }}</p>
+        </div>
+        <div class="card">
+            <h3>Total Despesas</h3>
+            <p>R$ {{ total_despesas }}</p>
+        </div>
+        <div class="card">
+            <h3>Saldo</h3>
+            <p>R$ {{ saldo }}</p>
+        </div>
+    </div>
+
+    <h2>Movimentos Recentes</h2>
+    <table>
+        <tr>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Valor</th>
+        </tr>
+        {% for mov in movimentos %}
+        <tr>
+            <td>{{ mov.get_tipo_display }}</td>
+            <td>{{ mov.descricao }}</td>
+            <td>{{ mov.data }}</td>
+            <td>R$ {{ mov.valor }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
