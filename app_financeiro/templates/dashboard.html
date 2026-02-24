@@ -1,83 +1,315 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard Financeiro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            text-align: center;
-        }
-        .container {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-        .card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 200px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <h1>Dashboard Financeiro</h1>
+{% extends 'base.html' %}
+{% block content %}
 
-    <div class="container">
-        <div class="card">
-            <h3>Total Receitas</h3>
-            <p>R$ {{ total_receitas }}</p>
+<div class="container-fluid">
+
+
+    <!-- HEADER -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h3>Resumo Financeiro</h3>
+
+        <div>
+
+            <button class="btn btn-success me-2">
+                + Receita
+            </button>
+
+            <button class="btn btn-danger me-2">
+                + Despesa
+            </button>
+
+            <button class="btn btn-primary">
+                + Transferência
+            </button>
+
         </div>
-        <div class="card">
-            <h3>Total Despesas</h3>
-            <p>R$ {{ total_despesas }}</p>
-        </div>
-        <div class="card">
-            <h3>Saldo</h3>
-            <p>R$ {{ saldo }}</p>
-        </div>
+
     </div>
 
-    <h2>Movimentos Recentes</h2>
-    <table>
-        <tr>
-            <th>Tipo</th>
-            <th>Descrição</th>
-            <th>Data</th>
-            <th>Valor</th>
-        </tr>
-        {% for mov in movimentos %}
-        <tr>
-            <td>{{ mov.get_tipo_display }}</td>
-            <td>{{ mov.descricao }}</td>
-            <td>{{ mov.data }}</td>
-            <td>R$ {{ mov.valor }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+
+
+    <!-- KPIS -->
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="card p-3">
+
+                Saldo Total
+
+                <h4 class="text-primary">
+                    R$ 12.450
+                </h4>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="card p-3">
+
+                Receitas do mês
+
+                <h4 class="text-success">
+                    R$ 5.000
+                </h4>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="card p-3">
+
+                Despesas do mês
+
+                <h4 class="text-danger">
+                    R$ 2.300
+                </h4>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-3">
+            <div class="card p-3">
+
+                Economia
+
+                <h4>
+                    R$ 15.000
+                </h4>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- GRAFICOS -->
+
+    <div class="row mt-4">
+
+
+        <div class="col-md-6">
+
+            <div class="card p-3">
+
+                Fluxo Mensal
+
+                <canvas id="fluxo"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-6">
+
+            <div class="card p-3">
+
+                Categorias
+
+                <canvas id="categoria"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ECONOMIA E METAS -->
+
+    <div class="row mt-4">
+
+
+        <div class="col-md-6">
+
+            <div class="card p-3">
+
+                <h5>Economia</h5>
+
+                Guardado:
+
+                <h4>
+                    R$ 15.000
+                </h4>
+
+                Rendimento mensal:
+
+                <h5 class="text-success">
+                    R$ 120
+                </h5>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-6">
+
+            <div class="card p-3">
+
+                <h5>Metas</h5>
+
+                Casa própria
+
+                <div class="progress">
+
+                    <div class="progress-bar" style="width:35%">
+
+                        35%
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- SIMULADOR CDI -->
+
+    <div class="card mt-4 p-3">
+
+        <h5>Simulador CDI</h5>
+
+
+        Valor:
+
+        <input id="valor" class="form-control mb-2">
+
+
+        CDI (%):
+
+        <input id="cdi" class="form-control mb-2" value="13.65">
+
+
+        Meses:
+
+        <input id="meses" class="form-control mb-2">
+
+
+        <button onclick="calcular()" class="btn btn-primary">
+
+            Calcular
+
+        </button>
+
+
+        <h4 id="resultado" class="mt-3"></h4>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<script>
+
+
+    // GRAFICO FLUXO
+
+    new Chart(fluxo, {
+
+        type: 'bar',
+
+        data: {
+
+            labels: ['Jan', 'Feb', 'Mar'],
+
+            datasets: [
+
+                {
+
+                    label: 'Receita',
+
+                    data: [5000, 4000, 6000]
+
+                },
+
+                {
+
+                    label: 'Despesa',
+
+                    data: [2000, 3000, 2500]
+
+                }
+
+            ]
+
+        }
+
+    })
+
+
+
+
+    // CATEGORIA
+
+    new Chart(categoria, {
+
+        type: 'doughnut',
+
+        data: {
+
+            labels: ['Comida', 'Aluguel', 'Lazer'],
+
+            datasets: [{
+
+                data: [800, 1200, 500]
+
+            }]
+
+        }
+
+    })
+
+
+
+
+    // CALCULO CDI
+
+
+    function calcular() {
+
+        valor = document.getElementById('valor').value
+
+        cdi = document.getElementById('cdi').value
+
+        meses = document.getElementById('meses').value
+
+
+        resultado = valor * (1 + (cdi / 100) / 12) ** meses
+
+
+        document.getElementById('resultado').innerHTML =
+
+            "Resultado: R$ " + resultado.toFixed(2)
+
+    }
+
+
+</script>
+
+
+
+{% endblock %}
