@@ -1,57 +1,92 @@
-# Plano de Implementação - Sistema Financeiro com Dashboard
-### Descrição de TODO gerado por IA
+# Sistema Financeiro Pessoal - Lista de Tarefas
 
-## Fase 1: Configuração e Modelos (Django ORM)
-- [ ] **1.1** Atualizar `settings.py` com apps necessários (`django-crispy-forms`, `reportlab`, `xlsxwriter`, etc)
-- [ ] **1.2** Atualizar `models.py` com modelos completos:
-  - [ ] `Profile` (extender User com roles)
-  - [ ] `Categoria` (adicionar campo tipo: Receita/Despesa)
-  - [ ] `Transacao` (adicionar campos tipo, categoria, conta_bancaria)
-  - [ ] `ContaBancaria` (novo modelo)
-- [ ] **1.3** Criar migrações (`makemigrations` e `migrate`)
-- [ ] **1.4** Atualizar `admin.py` para registrar modelos
+## Status Atual do Projeto
+- **Modelo de dados:** Parcialmente implementado (Categorias e Movimentacao)
+- **Dashboard:**Template existe, mas com dados hardcoded (não conecta ao banco)
+- **Autenticação:** Não implementada
+- **CRUD:** Não implementado
 
-## Fase 2: Autenticação e Autorização
-- [ ] **2.1** Criar `forms.py` para autenticação
-- [ ] **2.2** Criar views de autenticação (`login`, `logout`, `register`, `password recovery`)
-- [ ] **2.3** Configurar URLs de autenticação
-- [ ] **2.4** Criar decorators para permissões (`user`/`admin`)
+---
 
-## Fase 3: CRUD de Categorias
-- [ ] **3.1** Views para criar, listar, editar e excluir categorias
-- [ ] **3.2** Templates para gestão de categorias
-- [ ] **3.3** URLs para categorias
+## PRIORIDADE 1 - Funcionalidades Essenciais (MVP)
 
-## Fase 4: Gestão de Transações
-- [ ] **4.1** Views para criar, listar, editar e excluir transações
-- [ ] **4.2** Templates para gestão de transações
-- [ ] **4.3** URLs para transações
+### 1. Sistema de Autenticação
+- [ ] Criar sistema de login/logout
+- [ ] Criar registro de usuários
+- [ ] Configurar autenticação requerida para acessar dashboard
 
-## Fase 5: Contas Bancárias/Carteiras
-- [ ] **5.1** Views para CRUD de contas
-- [ ] **5.2** Templates para gestão de contas
-- [ ] **5.3** Cálculo de saldo por conta e saldo consolidado
+### 2. Melhorar Modelos de Dados
+- [ ] Adicionar campo de conta bancária ao modelo Movimentacao
+- [ ] Adicionar campo de pago/pendente às transações
+- [ ] Adicionar campo de observações às transações
 
-## Fase 6: Dashboard Financeiro
-- [ ] **6.1** View do dashboard com indicadores
-- [ ] **6.2** Gráficos usando `Chart.js` ou `Plotly`
-- [ ] **6.3** Filtros por período e categoria
-- [ ] **6.4** Template do dashboard
+### 3. CRUD de Categorias
+- [ ] View para listar categorias
+- [ ] View para criar nova categoria
+- [ ] View para editar categoria
+- [ ] View para excluir categoria
 
-## Fase 7: Relatórios Exportáveis
-- [ ] **7.1** View para exportar PDF
-- [ ] **7.2** View para exportar Excel
-- [ ] **7.3** Filtros para relatórios
+### 4. CRUD de Transações (Movimentações)
+- [ ] View para listar transações
+- [ ] View para criar nova transação (receita/despesa)
+- [ ] View para editar transação
+- [ ] View para excluir transação
+- [ ] Marcar transação como paga/pendente
 
-## Fase 8: Alertas e Notificações
-- [ ] **8.1** Sistema de alertas para contas a pagar
-- [ ] **8.2** Notificações de saldo negativo
+### 5. Dashboard Dinâmico
+- [ ] Conectar dashboard ao banco de dados
+- [ ] Calcular saldo total automaticamente
+- [ ] Calcular receitas do mês atual
+- [ ] Calcular despesas do mês atual
+- [ ] Exibir gráfico de fluxo mensal (dados reais)
+- [ ] Exibir gráfico de categorias (dados reais)
 
-## Fase 9: Backup e Restauração
-- [ ] **9.1** View para exportar dados (JSON)
-- [ ] **9.2** View para importar dados
+---
 
-## Fase 10: Templates e UI
-- [ ] **10.1** Template base (layout)
-- [ ] **10.2** CSS/Estilos
-- [ ] **10.3** Templates responsivos
+## PRIORIDADE 2 - Funcionalidades Avançadas
+
+### 6. Gestão de Contas Bancárias
+- [ ] Criar modelo ContaBancaria
+- [ ] CRUD de contas bancárias
+- [ ] Visualizar saldo por conta
+- [ ] Transferências entre contas
+
+### 7. Relatórios
+- [ ] Exportar transações para Excel
+- [ ] Exportar transações para PDF
+- [ ] Filtros por período e categoria
+
+### 8. Controle de Contas a Pagar/Receber
+- [ ] Listar contas a pagar pendentes
+- [ ] Listar contas a receber pendentes
+- [ ] Alertas de contas vencidas
+
+---
+
+## PRIORIDADE 3 - Melhorias de Interface
+
+### 9. Interface do Usuário
+- [ ] Melhorar design do dashboard
+- [ ] Tornar sidebar responsiva
+- [ ] Adicionar indicadores visuais de saldo
+- [ ] Adicionar filtros na página de transações
+
+### 10. Simulador CDI (Melhorias)
+- [ ] Melhorar validação dos campos
+- [ ] Adicionar mais opções de investimento
+
+---
+
+## Como Executar as Tarefas
+
+### Preparar ambiente:
+```
+bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+### Acessar:
+- Dashboard: http://127.0.0.1:8000/
+- Admin: http://127.0.0.1:8000/admin/
