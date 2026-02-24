@@ -4,6 +4,23 @@
 - **Modelo de dados:** Parcialmente implementado (Categorias e Movimentacao)
 - **Dashboard:**Template existe, mas com dados hardcoded (não conecta ao banco)
 - **Autenticação:** Não implementada
+
+    1 - Criar um app de usuários
+    2 - Adicionar o app no INSTALLED_APPS
+    3 - Configurar LOGIN_URL, LOGIN_REDIRECT_URL e LOGOUT_REDIRECT_URL no settings
+    4 - Criar as rotas (login, logout e página protegida)
+    5 - Criar a view de login
+    6 - Criar a view de logout
+    7 - Criar a view protegida com login_required
+    8 - Criar a pasta templates
+    9 - Criar o arquivo login.html
+    10 - Criar a página protegida (ex: dashboard.html)
+    11 - Configurar o caminho de templates no settings
+    12 - Colocar csrf_token no formulário
+    13 - Criar um usuário com createsuperuser
+
+
+
 - **CRUD:** Não implementado
 
 ---
